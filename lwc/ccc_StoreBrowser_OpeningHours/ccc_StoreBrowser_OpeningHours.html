@@ -1,0 +1,103 @@
+<!--
+  @last modified on  : 11-26-2020
+-->
+<template>
+    <div class="slds-grid slds-wrap">
+        <!-- Opening Hours Top Link -->
+        <div if:true={openingHours} class="slds-size--1-of-1 slds-align_absolute-center slds-m-around_small">
+            <a name="Opening Hours" onclick={displayOpeningHours}>{label.CCC_Search_OpeningHours} &nbsp;
+                <template if:true={showOpeningHours}>
+                    <c-cake-icon style-class="icon-16" icon-name="arrow-up"></c-cake-icon>
+                </template>
+                <template if:false={showOpeningHours}>
+                    <c-cake-icon style-class="icon-16" icon-name="arrow-down"></c-cake-icon>
+                </template>
+            </a>
+        </div>
+        <div if:true={showOpeningHours} class="slds-col slds-size--1-of-1 slds-grid slds-wrap slds-grid slds-wrap">
+            <!-- Regular Hours -->
+            <div if:true={hasRegularHours} class={regularHoursBottomLine}>
+                <div class="slds-col slds-size--1-of-1 slds-align_absolute-center slds-m-around_small hoursTitle">
+                    {label.CCC_Search_RegularHours}
+                </div>
+                <template for:each={regularHoursList} for:item="regularHour">
+                    <div key={regularHour.storeId} class="slds-grid slds-wrap ">
+                        <div class="slds-col slds-size--5-of-12 slds-align_absolute-center">
+                            {regularHour.day}
+                        </div>
+                        <div class="slds-col slds-size--7-of-12 slds-align_absolute-center">
+                            <template if:true={regularHour.closed}>
+                                {label.CCC_Search_Closed}
+                            </template>
+                            <template if:false={regularHour.closed}>
+                                {regularHour.openingTime} - {regularHour.closingTime}
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Holiday Hours -->
+            <div if:true={hasHolidayHours} class={holidayHoursBottomLine}>
+                <div class="slds-col slds-size--1-of-1 slds-align_absolute-center slds-m-around_small hoursTitle">
+                    {label.CCC_Search_HolidayHours}
+                </div>
+                <template for:each={holidayHoursList} for:item="holidayHour">
+                    <div key={holidayHour.storeId} class="slds-grid slds-wrap holidayHoursBlock">
+                        <div class="slds-col slds-size--1-of-1">
+                            {holidayHour.holidayName}:
+                        </div>
+                        <div class="slds-col slds-size--1-of-1">
+                            &nbsp;&nbsp; {holidayHour.holidayDate}: &nbsp;&nbsp;
+                            <template if:true={holidayHour.closed}>
+                                {label.CCC_Search_Closed}
+                            </template>
+                            <template if:false={holidayHour.closed}>
+                                {holidayHour.openingTime} - {holidayHour.closingTime}
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Other Hours -->
+            <div if:true={hasOtherHours} class="slds-col slds-size--1-of-1 ">
+                <div class="slds-col slds-size--1-of-1 slds-align_absolute-center slds-m-around_small hoursTitle">
+                    {label.CCC_Search_OtherHours}
+                </div>
+                <template for:each={otherHoursList} for:item="otherHour">
+                    <div key={otherHour.storeId} class="slds-grid slds-wrap otherHoursBlock">
+                        <div class="slds-col slds-size--1-of-1 slds-align_absolute-center">
+                            {otherHour.name}
+                        </div>
+                        <div class="slds-col slds-size--1-of-1 slds-align_absolute-center">
+                            (Valid from {otherHour.validFrom} to {otherHour.validTo})
+                        </div>
+                        <div class="slds-grid slds-wrap ">
+                            <template for:each={otherHour.listOfDaysAndHours} for:item="dayAndHour">
+                                <div key={dayAndHour.otherHoursName} class="slds-col slds-size--5-of-12 slds-align_absolute-center">
+                                    {dayAndHour.day}
+                                </div>
+                                <div key={dayAndHour.otherHoursName} class="slds-col slds-size--7-of-12 slds-align_absolute-center">
+                                    <template if:true={dayAndHour.closed}>
+                                        {label.CCC_Search_Closed}
+                                    </template>
+                                    <template if:false={dayAndHour.closed}>
+                                        {dayAndHour.openingTime} - {dayAndHour.closingTime}
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <!-- Opening Hours Bottom Link -->
+            <div class="slds-size--1-of-1 slds-align_absolute-center slds-m-around_small">
+                <a name="Opening Hours" onclick={displayOpeningHours}>{label.CCC_Search_OpeningHours} &nbsp;
+                    <c-cake-icon style-class="icon-16" icon-name="arrow-up"></c-cake-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>

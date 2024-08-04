@@ -1,0 +1,32 @@
+a {
+    color: #0050aa !important;
+    background-color: transparent !important;
+    text-decoration: underline !important;
+    text-align: center !important;
+}
+
+a:hover {
+    color: #01336b !important; 
+}
+
+.bottomBorder{
+    border-bottom: 1px solid #c9c9c9;
+    padding-bottom: 7px;
+}
+
+.hoursTitle{
+    font-weight: bold;
+}
+
+.regularHoursBlock{
+    padding-bottom: 15px;
+}
+
+.holidayHoursBlock{
+    margin-bottom: 10px;
+    padding-left: 25px;
+}
+
+.otherHoursBlock{
+    padding-bottom: 15px;
+}

@@ -1,0 +1,45 @@
+button.arrowButton{
+    height: 48px !important;
+    width: 48px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-bottom: 11px !important;
+    padding-top: 11px !important;
+}
+
+.tableHeader{
+    font-weight: bold !important;
+    background-color: #e0dfdf !important;
+    height: 50px;
+    border: 1px solid #b5b1b1;
+}
+
+.tableRow{
+    border: 1px solid #b5b1b1;
+    border-top: 0px solid #b5b1b1;
+}
+
+.tableRow:hover{
+    background-color: #f7f7f7 !important;
+}
+
+.address{
+    padding: 10px 5px 10px 5px;
+    text-align: center;
+}
+
+.openingHours{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+a {
+    color: #0050aa !important;
+    background-color: transparent !important;
+    text-decoration: underline !important;
+    text-align: center !important;
+}
+
+a:hover {
+    color: #01336b !important; 
+}

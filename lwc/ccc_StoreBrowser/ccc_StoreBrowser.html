@@ -1,0 +1,90 @@
+<!--
+  @last modified on  : 11-30-2020
+-->
+<template>
+    <!-- Browser button -->
+    <button class="btn btn-primary" onclick={openModal} style="width: 100%;">{label.Search}</button>
+    <!-- Modal Window -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{label.CCC_StoreBrowserHeaderTitle}</h2>
+                </header>
+                <!-- Modal Content -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <!-- Search Section -->
+                    <div class="slds-p-around_medium slds-align_absolute-center">
+                        {label.CCC_StoreBrowserTip}
+                    </div>
+                    <lightning-layout multiple-rows="true" horizontal-align="center" vertical-align="end">
+                        <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="6" padding="around-small">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <input class="styleInputs form-control" type="text" onchange={handleSearchTermChange} ></input>
+                                </div>
+                            </div> 
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="2" padding="around-small">
+                            <div class="slds-form-element slds-align_absolute-center">
+                                <div class="slds-form-element__control">
+                                    <button class="btn btn-primary" onclick={handleSearch}>{label.Search}</button>
+                                </div>
+                            </div> 
+                        </lightning-layout-item>
+                    </lightning-layout> 
+                    
+                    <!-- Search Results Section -->
+                    <div if:true={storesFound}>
+                        <!-- Number of stores -->
+                        <div class="slds-m-around_large slds-align_absolute-center"><h5>{retrievedData.length} {label.CCC_NumberStoresFound}</h5></div>
+                        
+                        <!-- Store Data -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size--1-of-1 slds-align_absolute-center tableHeader">{label.CCC_Search_Stores}</div>
+                            <template for:each={currentlyVisible} for:item="storeWrapper">
+                                <div key={storeWrapper.store.Id} class="slds-grid slds-wrap slds-size--1-of-1 tableRow">
+                                    <div class="slds-col slds-size--1-of-1 slds-medium-size--5-of-12 slds-align_absolute-center address">
+                                        <a onclick={selectedStore} data-id={storeWrapper.store.Id} data-name={storeWrapper.store.Name}>{storeWrapper.store.Name}</a>
+                                    </div>
+                                    <div class="slds-col slds-size--1-of-1 slds-medium-size--7-of-12 openingHours">
+                                        <template if:true={storeWrapper.openingHours}>
+                                            <c-ccc_-store-browser_-opening-hours opening-hours={storeWrapper.openingHours}></c-ccc_-store-browser_-opening-hours>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Paginator buttons -->
+                        <div class="slds-align_absolute-center page-data-container slds-m-top_large slds-m-bottom_xx-small">
+                            <button class="slds-float_left slds-m-around_xx-small btn btn-primary arrowButton" disabled={previousDisabled}
+                                onclick={goToPreviousPage}>
+                                <c-cake-icon style-class="icon-24" icon-name="arrow-left" > </c-cake-icon>
+                            </button>
+                            <template for:each={numberOfPagesList} for:item="page"            >
+                                <button class="btn btn-primary page-index slds-m-around_xx-small" key={page} onclick={goToNumberPage} 
+                                    title={page} data-name={page}>{page}</button>
+                            </template>
+                            <button class="slds-float_right slds-m-around_xx-small btn btn-primary arrowButton" disabled={nextDisabled}
+                                onclick={goToNextPage}>
+                                <c-cake-icon style-class="icon-24" icon-name="arrow-right" > </c-cake-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- No Search Results Section -->
+                    <div if:true={noStoresFound} class="slds-p-around_xx-large slds-align_absolute-center text-danger">
+                        {label.CCC_Search_NoResultsFor}&nbsp; <i>{searchTerm}</i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

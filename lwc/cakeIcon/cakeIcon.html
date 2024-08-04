@@ -1,0 +1,15 @@
+<!--
+  @Description        : renders the specified icon from the Cake3 svg icons.
+                        This component does not include the cake3 css styles, it just renders svg icons,
+                        so in case you want to combine it with cake3 styles, import it in your parent component.
+                        This component was initially created in the QSH project. Now it's maintained in the CCC one.
+  @Author             : samuel.esteban@lidl.es
+-->
+<template>
+    <svg class={_styleClass} xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+        <title>{placeHolder}</title>
+        <use if:true={isColorSet} xlink:href={svgURL} fill={color}></use>
+        <use if:false={isColorSet} xlink:href={svgURL}></use>
+    </svg>
+      
+  </template>
